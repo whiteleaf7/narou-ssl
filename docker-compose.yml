@@ -1,0 +1,12 @@
+https-portal:
+  image: steveltn/https-portal:1
+  environment:
+    SERVER_SSL_PORT: ${SERVER_SSL_PORT}
+    STAGE: local
+    DOMAINS: "localhost -> http://host.docker.internal:${SERVER_PORT}"
+  ports:
+    - "${SERVER_SSL_PORT}:443"
+  extra_hosts:
+    - "host.docker.internal:${SERVER_ADDRESS}"
+  volumes:
+    - ./localhost.ssl.conf.erb:/var/lib/nginx-conf/localhost.ssl.conf.erb:ro
